@@ -1,0 +1,130 @@
+\documentclass{bsuir}
+\usepackage{makecell}
+\usepackage{multirow}
+
+\departmentlong{инженерной психологии и эргономики}
+\worktitle{\textbf{ОТЧЁТ}\\к практическому занятию на тему\\\textquote{Шифрование и расшифрование
+информации с использованием шифра Цезаря}}
+\titleleft{
+    Проверил:\\
+    Фомин Д.А.\\
+    ~
+}
+\titleright{
+    Выполнили:\\
+    Бородин А.Н.\\
+    гр. 310901
+}
+\titlepageyear{2025}
+
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage{breqn}
+
+\newlength{\tablewidth}
+\setlength{\tablewidth}{\textwidth - \parindent}
+
+\renewcommand*{\thesection}{\arabic{section}}
+
+\begin{document}
+
+\maketitle
+\mainmatter
+
+\textbf{Цель работы:} изучение способов криптографического преобразования информации и получения
+базовых практических навыков шифрования сообщений, а также криптоанализа шифротекста на примере
+шифра Цезаря.
+
+\textbf{Вариант:} 2.
+
+\section{Расшифровка текста}
+
+В таблице \ref{tab:alphabet} представлен русский алфавит с его сдвигами от одного вправо до 10. В
+таблице \ref{tab:shifts} приведены попытки расшифровки текста при различных сдвигах. Было
+установлено, что сдвиг шифра Цезаря равен семи буквам вправо. Зашифрованный текст: \textquote{Имлх
+ийзёфкещ Юьз Жюыюэзё излзём, Рлз ыюйщ юклх ы Жюьз, Жз ыюйф жюл Юём!}. Расшифрованный текст:
+\textquote{Путь промысла Его Неведом потому, Что вера есть в Него, Но веры нет Ему!}.
+
+	{\small
+		\begin{longtable}{|>{\centering\arraybackslash}m{0.05\tablewidth}|
+			*{11}{>{\centering\arraybackslash}m{0.05\tablewidth}|}}
+			\caption{Сдвиги русского алфавита}\label{tab:alphabet}                                                                                                               \\
+			\hline
+			\textbf{№} & \textbf{0} & \textbf{+1} & \textbf{+2} & \textbf{+3} & \textbf{+4} & \textbf{+5} & \textbf{+6} & \textbf{+7} & \textbf{+8} & \textbf{+9} & \textbf{+10} \\
+			\hline
+			\endfirsthead
+			\caption*{Продолжение таблицы \ref{tab:alphabet}}                                                                                                                    \\
+			\hline
+			\textbf{№} & \textbf{0} & \textbf{+1} & \textbf{+2} & \textbf{+3} & \textbf{+4} & \textbf{+5} & \textbf{+6} & \textbf{+7} & \textbf{+8} & \textbf{+9} & \textbf{+10} \\
+			\hline
+			\endhead
+			\hline
+			\endfoot
+			\hline
+			\endlastfoot
+			1          & А          & Б           & В           & Г           & Д           & Е           & Ё           & \textbf{Ж}  & З           & И           & Й            \\\hline
+			2          & Б          & В           & Г           & Д           & Е           & Ё           & Ж           & \textbf{З}  & И           & Й           & К            \\\hline
+			3          & В          & Г           & Д           & Е           & Ё           & Ж           & З           & \textbf{И}  & Й           & К           & Л            \\\hline
+			4          & Г          & Д           & Е           & Ё           & Ж           & З           & И           & \textbf{Й}  & К           & Л           & М            \\\hline
+			5          & Д          & Е           & Ё           & Ж           & З           & И           & Й           & \textbf{К}  & Л           & М           & Н            \\\hline
+			6          & Е          & Ё           & Ж           & З           & И           & Й           & К           & \textbf{Л}  & М           & Н           & О            \\\hline
+			7          & Ё          & Ж           & З           & И           & Й           & К           & Л           & \textbf{М}  & Н           & О           & П            \\\hline
+			8          & Ж          & З           & И           & Й           & К           & Л           & М           & \textbf{Н}  & О           & П           & Р            \\\hline
+			9          & З          & И           & Й           & К           & Л           & М           & Н           & \textbf{О}  & П           & Р           & С            \\\hline
+			10         & И          & Й           & К           & Л           & М           & Н           & О           & \textbf{П}  & Р           & С           & Т            \\\hline
+			11         & Й          & К           & Л           & М           & Н           & О           & П           & \textbf{Р}  & С           & Т           & У            \\\hline
+			12         & К          & Л           & М           & Н           & О           & П           & Р           & \textbf{С}  & Т           & У           & Ф            \\\hline
+			13         & Л          & М           & Н           & О           & П           & Р           & С           & \textbf{Т}  & У           & Ф           & Х            \\\hline
+			14         & М          & Н           & О           & П           & Р           & С           & Т           & \textbf{У}  & Ф           & Х           & Ц            \\\hline
+			15         & Н          & О           & П           & Р           & С           & Т           & У           & \textbf{Ф}  & Х           & Ц           & Ч            \\\hline
+			16         & О          & П           & Р           & С           & Т           & У           & Ф           & \textbf{Х}  & Ц           & Ч           & Ш            \\\hline
+			17         & П          & Р           & С           & Т           & У           & Ф           & Х           & \textbf{Ц}  & Ч           & Ш           & Щ            \\\hline
+			18         & Р          & С           & Т           & У           & Ф           & Х           & Ц           & \textbf{Ч}  & Ш           & Щ           & Ъ            \\\hline
+			19         & С          & Т           & У           & Ф           & Х           & Ц           & Ч           & \textbf{Ш}  & Щ           & Ъ           & Ы            \\\hline
+			20         & Т          & У           & Ф           & Х           & Ц           & Ч           & Ш           & \textbf{Щ}  & Ъ           & Ы           & Ь            \\\hline
+			21         & У          & Ф           & Х           & Ц           & Ч           & Ш           & Щ           & \textbf{Ъ}  & Ы           & Ь           & Э            \\\hline
+			22         & Ф          & Х           & Ц           & Ч           & Ш           & Щ           & Ъ           & \textbf{Ы}  & Ь           & Э           & Ю            \\\hline
+			23         & Х          & Ц           & Ч           & Ш           & Щ           & Ъ           & Ы           & \textbf{Ь}  & Э           & Ю           & Я            \\\hline
+			24         & Ц          & Ч           & Ш           & Щ           & Ъ           & Ы           & Ь           & \textbf{Э}  & Ю           & Я           & А            \\\hline
+			25         & Ч          & Ш           & Щ           & Ъ           & Ы           & Ь           & Э           & \textbf{Ю}  & Я           & А           & Б            \\\hline
+			26         & Ш          & Щ           & Ъ           & Ы           & Ь           & Э           & Ю           & \textbf{Я}  & А           & Б           & В            \\\hline
+			27         & Щ          & Ъ           & Ы           & Ь           & Э           & Ю           & Я           & \textbf{А}  & Б           & В           & Г            \\\hline
+			28         & Ъ          & Ы           & Ь           & Э           & Ю           & Я           & А           & \textbf{Б}  & В           & Г           & Д            \\\hline
+			29         & Ы          & Ь           & Э           & Ю           & Я           & А           & Б           & \textbf{В}  & Г           & Д           & Е            \\\hline
+			30         & Ь          & Э           & Ю           & Я           & А           & Б           & В           & \textbf{Г}  & Д           & Е           & Ё            \\\hline
+			31         & Э          & Ю           & Я           & А           & Б           & В           & Г           & \textbf{Д}  & Е           & Ё           & Ж            \\\hline
+			32         & Ю          & Я           & А           & Б           & В           & Г           & Д           & \textbf{Е}  & Ё           & Ж           & З            \\\hline
+			33         & Я          & А           & Б           & В           & Г           & Д           & Е           & \textbf{Ё}  & Ж           & З           & И            \\
+		\end{longtable}}
+
+	{\small
+		\begin{longtable}{|>{\centering\arraybackslash}m{0.1\tablewidth}|>{\centering\arraybackslash}m{0.92\tablewidth}|}
+			\caption{Зашифрованный текст со сдвигами} \label{tab:shifts}                                        \\
+			\hline
+			\textbf{Сдвиг} & \textbf{Текст}                                                                    \\
+			\hline
+			\endfirsthead
+			\caption*{Продолжение таблицы \ref{tab:shifts}}                                                    \\
+			\hline
+			\textbf{Сдвиг} & \textbf{Текст}                                                                    \\
+			\hline
+			\endhead
+			\hline
+			\endfoot
+			\hline
+			\endlastfoot
+			0              & Имлх ийзёфкещ Юьз Жюыюэзё излзём, Рлз ыюйщ юклх ы Жюьз, Жз ыюйф жюл Юём!          \\\hline
+			+1             & Йнмц йкижхлёъ Яэи Зяьяюиж йимижн, Сми ьякъ ялмц ь Зяэи, Зи ьякх зям Яжн!          \\\hline
+			+2             & Конч клйзцмжы Аюй Иаэаяйз кйнйзо, Тнй эалы амнч э Иаюй, Ий эалц аин Азо!          \\\hline
+			+3             & Лпош лмкичнзь Бяк Йбюбаки лкокип, Уок юбмь бнош ю Йбяк, Йк юбмч йбо Бип!          \\\hline
+			+4             & Мрпщ мнлйшоиэ Вал Квявблй млплйр, Фпл явнэ вопщ я Квал, Кл явнш квп Вйр!          \\\hline
+			+5             & Нсръ номкщпйю Гбм Лгагвмк нмрмкс, Хрм агою гпръ а Лгбм, Лм агощ лгр Гкс!          \\\hline
+			+6             & Отсы опнлъркя Двн Мдбдгнл онснлт, Цсн бдпя дрсы б Мдвн, Мн бдпъ мдс Длт!          \\\hline
+			\textbf{+7}    & \textbf{Путь промысла Его Неведом потому, Что вера есть в Него, Но веры нет Ему!} \\\hline
+			+8             & Рфуэ рспньтмб Ёдп Оёгёепн рпупнф, Шуп гёсб ётуэ г Оёдп, Оп гёсь оёу Ёнф!          \\\hline
+			+9             & Схфю строэунв Жер Пжджёро срфрох, Щфр джтв жуфю д Пжер, Пр джтэ пжф Жох!          \\\hline
+			+10            & Тцхя туспюфог Зёс Рзезжсп тсхспц, Ъхс езуг зфхя е Рзёс, Рс езую рзх Зпц!          \\
+		\end{longtable}
+	}
+
+\end{document}
