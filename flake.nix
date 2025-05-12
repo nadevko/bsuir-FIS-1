@@ -35,21 +35,20 @@
         with pkgs;
         {
           devShells.default = mkShell {
-            packages =
-              [
-                (texliveFull.withPackages (
-                  ps: with ps; [
-                    bsuir-tex.packages.${system}.default
-                    makecell
-                    breqn
-                    pgfplots
-                  ]
-                ))
-                tex-fmt
-                inkscape-with-extensions
-                python3
-                python3Packages.pygments
-              ];
+            packages = [
+              (texliveFull.withPackages (
+                ps: with ps; [
+                  bsuir-tex.packages.${system}.default
+                  makecell
+                  breqn
+                  pgfplots
+                ]
+              ))
+              tex-fmt
+              inkscape-with-extensions
+              python3
+              python3Packages.pygments
+            ];
           };
           formatter = treefmt.wrapper;
         };
